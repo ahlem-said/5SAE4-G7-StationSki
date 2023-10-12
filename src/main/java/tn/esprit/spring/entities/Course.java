@@ -36,3 +36,4 @@ public class Course implements Serializable {
 	Set<Registration> registrations;
 
 }
+//commentaire
