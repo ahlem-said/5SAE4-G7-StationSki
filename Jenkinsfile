@@ -1,14 +1,15 @@
 pipeline {
     agent any
-
+  
     stages {
-        stage('Récupération du code') {
+        stage('GIT') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'SaidAhlem-5SAE4-G7']]])
+                git branch: 'SaidAhlem-5SAE4-G7',
+                url: 'https://github.com/ahlem-said/5SAE4-G7-StationSki.git'
             }
         }
-
-        stage('Nettoyage et Compilation') {
+        
+        stage('MVN CLEAN AND COMPILE') {
             steps {
                 sh 'mvn clean compile'
             }
