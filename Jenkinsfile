@@ -9,9 +9,19 @@ pipeline {
             }
         }
         
-        stage('MVN CLEAN AND COMPILE') {
+        stage('MVN CLEAN ') {
             steps {
                 sh 'mvn clean compile'
+            }
+        }
+        stage('MVN COMPILE ') {
+            steps {
+                sh 'mvn  compile'
+            }
+        }
+         stage('MVN SONAQUBE ') {
+            steps {
+                sh 'mvn  sonarqube'
             }
         }
     }
