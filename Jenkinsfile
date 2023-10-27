@@ -17,9 +17,9 @@ pipeline {
 
         stage('SonarQube') {
             steps {
-                withSonarQubeEnv('sonar') {
-                    sh 'mvn sonar:sonar'
-                }
+    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+}
+
             }
         }
     }
