@@ -19,9 +19,9 @@ pipeline {
                 sh 'mvn  compile'
             }
         }
-         stage('MVN SONAQUBE ') {
+         stage('Sonarqube ') {
             steps {
-                sh 'mvn  sonarqube'
+                sh 'mvn sonar:sonar'
             }
         }
     }
