@@ -17,10 +17,20 @@ pipeline {
 
         stage('SonarQube') {
             steps {
-    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
-}
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+            }
+        }
 
+        stage('JUNIT/MOCKITO') {
+            steps {
+                sh 'mvn test'  
+            }
+        }
+
+        stage('Nexus Deploy') {
+            steps {
+                sh 'mvn deploy -DskipTests'  
             }
         }
     }
-
+}
