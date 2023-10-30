@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.services.ICourseServices;
 
 import java.util.List;
@@ -34,6 +33,12 @@ public class CourseRestController {
     @PutMapping("/update")
     public Course updateCourse(@RequestBody Course course){
         return  courseServices.updateCourse(course);
+    }
+
+    @Operation(description = "Delete Course by Id")
+    @DeleteMapping("/delete/{id-course}")
+    public void deleteById(@PathVariable("id-course") Long numCourse){
+        courseServices.removeCourse(numCourse);
     }
 
     @Operation(description = "Retrieve Course by Id")
