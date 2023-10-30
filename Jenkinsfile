@@ -7,7 +7,7 @@ pipeline {
                 git branch: 'SaidAhlem-5SAE4-G7',
                 url: 'https://github.com/ahlem-said/5SAE4-G7-StationSki.git'
             }
-        }
+    }    
         
         stage('MVN CLEAN ') {
             steps {
@@ -37,3 +37,5 @@ pipeline {
             }
     }
 }
+}    
+     
