@@ -19,16 +19,24 @@ pipeline {
                 sh 'mvn  compile'
             }
         }
-         stage('Sonarqube ') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+           
+        stage('Artifact Construction') {
+            steps{
+                	sh "mvn -B -DskipTests package "
             }
         }
-        stage('JUNIT/MOCKITO ') {
+
+         stage('JUNIT/MOCKITO ') {
             steps {
                 sh 'mvn test'
             }
         }
+         stage('Sonarqube ') {
+            steps {
+                sh ' mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dsonar.host.url=http://http://192.168.2.14:9000 -Dsonar.token=sqp_563cd22947b1be82c80a56468317bb330ada56fd '
+            }
+        }
+       
         stage('Deploy to Nexus') {
             steps {
                        withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'admin', passwordVariable: 'nexus')]) {     
@@ -36,6 +44,39 @@ pipeline {
                 }
             }
     }
+
+        stage('Build Docker Image') {
+                      steps {
+                          script {
+                            sh 'docker build -t ahlemsa/gestionski .'
+                          }
+                      }
+                  }
+
+        stage('login dockerhub') {
+          steps {
+	     sh 'docker login -u ahlemsa --password dckr_pat_jl9D0V6cMYKn3fjLpqZCL5ATkns' }}
+
+	  stage('Push Docker Image') {
+            steps {
+              sh 'docker push ahlemsa/gestionski' }
+		  }
+
+
+	 stage('Run Spring && MySQL Containers') {
+          steps {
+          script {
+              sh 'docker-compose up -d'}
+                                 }
+                            
+
+ }
+
+
+
+
+
 }
-}    
+}
+ 
      
