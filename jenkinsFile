@@ -1,6 +1,12 @@
 pipeline{
     agent any
     stages {
+        //  stage('Git') {
+         //      steps {
+       //            // Étape pour récupérer le code source depuis le référentiel Git
+       //            checkout scm
+        //       }
+        //   }
         stage(" Maven Test "){
             steps {
                 sh "mvn -version"
@@ -21,9 +27,12 @@ pipeline{
                 sh 'mvn clean compile'
 
         }
-}
+          }
 
-
-
+          stage('SonarQube CodeQuality Check') {
+                      steps{
+                          sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=adminsonar'
+                      }
+                  }
     }
 }
