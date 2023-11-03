@@ -34,5 +34,11 @@ pipeline{
                           sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=adminsonar'
                       }
                   }
+            stage('Unit Test') {
+                       steps {
+                           // Use Maven to run JUnit tests
+                           sh 'mvn test'
+                       }
+                   }
     }
 }
