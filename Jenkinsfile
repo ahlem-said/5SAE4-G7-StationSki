@@ -25,17 +25,17 @@ pipeline {
                 	sh "mvn -B -DskipTests package "
             }
         }
-
+       stage('Sonarqube ') {
+            steps {
+                sh ' mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dsonar.host.url=http://http://192.168.2.14:9000 -Dsonar.token=sqp_563cd22947b1be82c80a56468317bb330ada56fd '
+            }
+        }
          stage('JUNIT/MOCKITO ') {
             steps {
                 sh 'mvn test'
             }
         }
-         stage('Sonarqube ') {
-            steps {
-                sh ' mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dsonar.host.url=http://http://192.168.2.14:9000 -Dsonar.token=sqp_563cd22947b1be82c80a56468317bb330ada56fd '
-            }
-        }
+        
        
         stage('Deploy to Nexus') {
             steps {
