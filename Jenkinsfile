@@ -53,26 +53,22 @@ pipeline {
                       }
                   }
 
-                  stage('login dockerhub') {
-                                        steps {
-				sh 'docker login -u ahlemsa --password dckr_pat_jl9D0V6cMYKn3fjLpqZCL5ATkns'
-                                            }
-		  }
+        stage('login dockerhub') {
+          steps {
+	sh 'docker login -u ahlemsa --password dckr_pat_jl9D0V6cMYKn3fjLpqZCL5ATkns' }
 
-	                      stage('Push Docker Image') {
-                                        steps {
-                                   sh 'docker push ahlemsa/gestionski'
-                                            }
+	  stage('Push Docker Image') {
+            steps {
+              sh 'docker push ahlemsa/gestionski' }
 		  }
 
 
-		   stage('Run Spring && MySQL Containers') {
-                                steps {
-                                    script {
-                                      sh 'docker-compose up -d'
-                                    }
-                                }
-                            }
+	 stage('Run Spring && MySQL Containers') {
+          steps {
+          script {
+         sh 'docker-compose up -d'}
+                                } }
+                            
 
 
 
@@ -80,6 +76,6 @@ pipeline {
 
 
 }
-}
-}    
+}}
+ 
      
