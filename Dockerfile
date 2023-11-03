@@ -1,13 +1,4 @@
-FROM eclipse-temurin:17-jdk-jammy
+FROM openjdk:8-jre-slim
+COPY target/*.jar app.jar
 
-WORKDIR /app
-
-
-
-COPY mvnw pom.xml ./
-RUN chmod +x mvnw
-RUN ./mvnw dependency:resolve
-
-COPY src ./src
-
-CMD ["./mvnw", "spring-boot:run"]
+ENTRYPOINT ["java","-jar","/app.jar"]
