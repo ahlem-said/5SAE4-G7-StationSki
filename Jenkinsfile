@@ -27,7 +27,7 @@ pipeline {
         }
        stage('Sonarqube ') {
             steps {
-                sh ' mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dsonar.host.url=http://http://192.168.2.14:9000  '
+                sh ' mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar   '
             }
         }
          stage('JUNIT/MOCKITO ') {
