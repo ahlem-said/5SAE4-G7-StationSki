@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+    stages {
+        stage(" Maven Test "){
+            steps {
+                sh "mvn -version"
+            }
+        }
+        stage("JDK Test "){
+            steps {
+                sh "java -version"
+            }
+        }
+        stage("Getting Projet From Git"){
+            steps {
+                echo "Pulling"
+            }
+        }
+        stage('Cleaning & Compiling') {
+            steps{
+                sh 'mvn clean compile'
+
+        }
+}
+
+
+
+    }
+}
