@@ -2,16 +2,23 @@ version: '3.3'
 services:
   mysql:
     image: mysql:5.7
-    restart: unless-stopped
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD:
-      MYSQL_DATABASE: stationSki
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
+        MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+        MYSQL_DATABASE: "stationSki"
+        MYSQL_ROOT_HOST: "%"
+    healthcheck:
+        test: [ "CMD-SHELL", "mysqladmin ping -h localhost" ]
+        timeout: 20s
+        retries: 10
+    restart: always
+    ulimits:
+      nofile:
+          soft: 65536
+          hard: 65536
+      # networks:
+      #    - common-net
 
 
   spring-app:
