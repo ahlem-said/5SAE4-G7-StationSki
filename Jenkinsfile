@@ -55,7 +55,7 @@ pipeline {
 
         stage('login dockerhub') {
           steps {
-	     sh 'docker login -u ahlemsa --password dckr_pat_jl9D0V6cMYKn3fjLpqZCL5ATkns' }
+	     sh 'docker login -u ahlemsa --password dckr_pat_jl9D0V6cMYKn3fjLpqZCL5ATkns' }}
 
 	  stage('Push Docker Image') {
             steps {
@@ -70,13 +70,13 @@ pipeline {
                                  }
                             
 
+ }
+
 
 
 
 
 }
 }
-
-}}
  
      
