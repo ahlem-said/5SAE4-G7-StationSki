@@ -19,6 +19,13 @@ pipeline {
                 sh 'mvn  compile'
             }
         }
+           
+        stage('Artifact Construction') {
+            steps{
+                	sh "mvn -B -DskipTests package "
+            }
+        }
+
          stage('JUNIT/MOCKITO ') {
             steps {
                 sh 'mvn test'
