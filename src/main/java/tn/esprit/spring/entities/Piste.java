@@ -31,7 +31,7 @@ public class Piste implements Serializable {
 	int slope;
 
 	@ManyToMany(mappedBy= "pistes")
-	private Set<Skier> skiers;
+	 private Set<Skier> skiers;
 
 
 
