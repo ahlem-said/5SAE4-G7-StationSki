@@ -19,6 +19,7 @@ import java.util.Optional;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+
 class ServicePisteLmplTest {
  @InjectMocks
  private PisteServicesImpl pisteServices;
@@ -42,6 +43,8 @@ class ServicePisteLmplTest {
   Mockito.when(pisteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(piste));
   Piste piste1 = pisteServices.retrievePiste(64L);
   Assertions.assertNotNull(piste1);
+
+  System.out.println("hello hello ");
  }
 
  @Test
@@ -59,7 +62,7 @@ class ServicePisteLmplTest {
 
   Assertions.assertNotNull(pisteAjoutee);
 
-
+  System.out.println("hello hello ");
 
  }
 
@@ -77,7 +80,7 @@ class ServicePisteLmplTest {
 
   List<Piste> retrievedAllPistes = pisteServices.retrieveAllPistes();
   Assertions.assertEquals(pisteList.size(), retrievedAllPistes.size());
-
+System.out.println("hello hello ");
 
  }
 
@@ -94,6 +97,7 @@ class ServicePisteLmplTest {
 
 
   Mockito.verify(pisteRepository).deleteById(1L);
+  System.out.println("hello hello ");
  }
 
 
