@@ -25,7 +25,13 @@ pipeline {
                 	sh "mvn -B -DskipTests package "
             }
         }
-	    
+	     stage('JUNIT/MOCKITO ') {
+                    steps {
+                        sh 'mvn test'
+                    }
+                }
+
+
 	  
        stage('Sonarqube ') {
             steps {
@@ -33,13 +39,7 @@ pipeline {
             }
         }
 
-      stage('JUNIT/MOCKITO ') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-	 
-        
+
        stage('Deploy to Nexus') {
             steps {
                        withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'admin', passwordVariable: 'nexus')]) {     
