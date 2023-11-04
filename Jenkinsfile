@@ -20,6 +20,11 @@ pipeline {
                 sh 'mvn -B -DskipTests package'
             }
         }
+         stage('JUNIT/MOCKITO') {
+            steps {
+                sh 'mvn test'
+            }
+        }
         
         stage('Code Quality Check via SonarQube') {
                     steps {
