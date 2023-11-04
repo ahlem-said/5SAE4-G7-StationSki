@@ -52,7 +52,7 @@ pipeline {
                stage('Docker Hub') {
                    steps {
                        script {
-                           sh 'docker login -u emnaayachi -p 07237811Ea'
+                           sh 'docker login -u emnaayachi -p dckr_pat_r126eCxHuD-1RxG9UGWC8cPAbmI'
                        }
                    }
                }
