@@ -26,18 +26,18 @@ pipeline {
             }
         }
 	    
-	stage('JUNIT/MOCKITO ') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-	    
+	  
        stage('Sonarqube ') {
             steps {
                 sh ' mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar   '
             }
         }
-      
+      stage('JUNIT/MOCKITO ') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+	  
         
        
         stage('Deploy to Nexus') {
