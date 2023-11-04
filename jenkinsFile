@@ -70,7 +70,7 @@ pipeline{
                                    steps {
                                        script {
                                            def nexusUrl = 'http://localhost:8081/repository/maven-releases/' // Remplacez par l'URL de votre serveur Nexus
-                                           def nexusCredentialsId = 'deploymentRepo' // ID des identifiants Nexus dans Jenkins
+                                           def nexusCredentialsId = 'nexusCredentialsId' // ID des identifiants Nexus dans Jenkins
 
                                            def deployCommand = 'mvn deploy -DskipTests' // Commande Maven pour déployer en skippant les tests
 
