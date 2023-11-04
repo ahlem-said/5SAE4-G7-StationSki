@@ -13,6 +13,7 @@ import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.repositories.IPisteRepository;
 import tn.esprit.spring.services.PisteServicesImpl;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,12 +31,12 @@ class ServicePisteLmplTest {
 
  @Test
  void testRetrievePistesById() {
-  Piste piste = new Piste(34L,"hello", Color.BLUE,11, 23);
+  Piste piste = new Piste(34L,"hello", Color.BLUE,11, 23,new HashSet<>());
 
   List<Piste> pisteList = new ArrayList<Piste>(){
    {
-    add(new Piste(64L,"hello", Color.BLACK,177, 203));
-    add(new Piste(68L,"asmaaa", Color.RED,101, 26));
+    add(new Piste(64L,"hello", Color.BLACK,177, 203,new HashSet<>()));
+    add(new Piste(68L,"asmaaa", Color.RED,101, 26,new HashSet<>()));
 
    }
   };
@@ -49,7 +50,7 @@ class ServicePisteLmplTest {
  @Test
  void testAjoutPiste() {
 
-  Piste pisteAAjouter = new Piste(34L, "hello", Color.BLUE, 11, 23);
+  Piste pisteAAjouter = new Piste(34L, "hello", Color.BLUE, 11, 23,new HashSet<>());
 
 
   Mockito.when(pisteRepository.save(Mockito.any(Piste.class))).thenReturn(pisteAAjouter);
@@ -66,12 +67,12 @@ class ServicePisteLmplTest {
  }
 
  void  testAllPistes(){
-  Piste piste = new Piste(34L,"hello", Color.BLUE,11, 23);
+  Piste piste = new Piste(34L,"hello", Color.BLUE,11, 23,new HashSet<>());
 
   List<Piste> pisteList = new ArrayList<Piste>(){
    {
-    add(new Piste(64L,"hello", Color.BLACK,177, 203));
-    add(new Piste(68L,"asmaaa", Color.RED,101, 26));
+    add(new Piste(64L,"hello", Color.BLACK,177, 203,new HashSet<>()));
+    add(new Piste(68L,"asmaaa", Color.RED,101, 26,new HashSet<>()));
 
    }
   };
