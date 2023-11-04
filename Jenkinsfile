@@ -42,11 +42,11 @@ pipeline {
 
  stage('Deploy to Nexus') {
              steps {
-                        withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'admin', passwordVariable: 'nexus')]) {
-                     sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/ -Dnexus.user=admin -Dnexus.password=nexus'
+                       
+                     sh 'mvn deploy  -Dnexus.user=admin -Dnexus.password=nexus'
                  }
              }
-     }
+     
         stage('Build Docker Image') {
                       steps {
                           script {
