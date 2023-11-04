@@ -16,7 +16,7 @@ services:
       - app-network
 
   spring-app:
-    image: ahlemsa/gestionski:latest
+    image: ahlemsa/gestionski
     ports:
       - "8089:8089"
     depends_on:
