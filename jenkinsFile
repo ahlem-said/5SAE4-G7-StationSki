@@ -75,7 +75,7 @@ pipeline{
                                            def deployCommand = 'mvn deploy -DskipTests' // Commande Maven pour déployer en skippant les tests
 
 
-                                           nexusArtifactUploader(credentialsId: nexusCredentialsId, nexusUrl: nexusUrl)
+                                           nexusArtifactUploader credentialsId: nexusCredentialsId, nexusUrl: nexusUrl
                                        }
                                    }
                                }
