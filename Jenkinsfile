@@ -20,6 +20,12 @@ pipeline {
                 sh 'mvn -B -DskipTests package'
             }
         }
+        
+        stage('Code Quality Check via SonarQube') {
+                    steps {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+                    }
+        }
 
 
         stage('JUNIT/MOCKITO') {
@@ -27,12 +33,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
-
-        stage('Code Quality Check via SonarQube') {
-                    steps {
-                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
-                    }
-        }
+  
 
         stage('Nexus Deploy') {
             steps {
