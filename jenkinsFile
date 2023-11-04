@@ -40,5 +40,30 @@ pipeline{
                            sh 'mvn test'
                        }
                    }
+
+             stage('Publish to Nexus') {
+                        steps {
+                            script {
+                                def nexusUrl = 'http://localhost:8081/repository/maven-releases/' // Remplacez par l'URL de votre serveur Nexus
+                                def nexusCredentialsId = 'nexus-credentials' // ID des identifiants Nexus dans Jenkins
+
+                                def artifactsToPublish = [
+                                    [
+                                        repository: 'Nexus Repository',
+                                    ]
+                                ]
+
+                                nexusArtifactUploader artifacts: artifactsToPublish, credentialsId: nexusCredentialsId, nexusUrl: nexusUrl
+                            }
+                        }
+                    }
+
+                  //  stage('Deploy to Nexus') {
+                   //             steps {
+                    //                       withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'admin', passwordVariable: 'nexus')]) {
+                    //                    sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/ -Dnexus.user=admin -Dnexus.password=nexus'
+                     //               }
+                    //            }
+                    //    }
     }
 }
