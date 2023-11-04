@@ -1,11 +1,13 @@
 package tn.esprit.spring;
 
+import org.junit.Before;
 import org.junit.jupiter.api.*;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.spring.entities.Color;
@@ -17,8 +19,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
+
 @ExtendWith(MockitoExtension.class)
 
 class ServicePisteLmplTest {
@@ -41,7 +44,7 @@ class ServicePisteLmplTest {
    }
   };
 
-  Mockito.when(pisteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(piste));
+  when(pisteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(piste));
   Piste piste1 = pisteServices.retrievePiste(64L);
   Assertions.assertNotNull(piste1);
   System.out.println("hello hello ");
@@ -53,11 +56,11 @@ class ServicePisteLmplTest {
   Piste pisteAAjouter = new Piste(34L, "hello", Color.BLUE, 11, 23,new HashSet<>());
 
 
-  Mockito.when(pisteRepository.save(Mockito.any(Piste.class))).thenReturn(pisteAAjouter);
+  when(pisteRepository.save(Mockito.any(Piste.class))).thenReturn(pisteAAjouter);
 
   Piste pisteAjoutee = pisteServices.addPiste(pisteAAjouter);
 
-  Mockito.verify(pisteRepository).save(pisteAAjouter);
+  verify(pisteRepository).save(pisteAAjouter);
 
 
   Assertions.assertNotNull(pisteAjoutee);
@@ -66,23 +69,7 @@ class ServicePisteLmplTest {
 
  }
 
- void  testAllPistes(){
-  Piste piste = new Piste(34L,"hello", Color.BLUE,11, 23,new HashSet<>());
 
-  List<Piste> pisteList = new ArrayList<Piste>(){
-   {
-    add(new Piste(64L,"hello", Color.BLACK,177, 203,new HashSet<>()));
-    add(new Piste(68L,"asmaaa", Color.RED,101, 26,new HashSet<>()));
-
-   }
-  };
-  Mockito.when(pisteRepository.findAll()).thenReturn(pisteList);
-
-  List<Piste> retrievedAllPistes = pisteServices.retrieveAllPistes();
-  Assertions.assertEquals(pisteList.size(), retrievedAllPistes.size());
-System.out.println("hello hello ");
-
- }
 
  @Test
  void testRemovePiste () {
@@ -90,13 +77,13 @@ System.out.println("hello hello ");
   Long numPiste = 1L;
 
 
-  Mockito.doNothing().when(pisteRepository).deleteById(1L);
+  doNothing().when(pisteRepository).deleteById(1L);
 
 
   pisteServices.removePiste(numPiste);
 
 
-  Mockito.verify(pisteRepository).deleteById(1L);
+  verify(pisteRepository).deleteById(1L);
   System.out.println("hello hello ");
  }
 
