@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.*;
-
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -42,10 +40,9 @@ class ServicePisteLmplTest {
    }
   };
 
-  when(pisteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(piste));
+  Mockito.when(pisteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(piste));
   Piste piste1 = pisteServices.retrievePiste(64L);
   Assertions.assertNotNull(piste1);
-
   System.out.println("hello hello ");
  }
 
@@ -55,11 +52,11 @@ class ServicePisteLmplTest {
   Piste pisteAAjouter = new Piste(34L, "hello", Color.BLUE, 11, 23);
 
 
-  when(pisteRepository.save(Mockito.any(Piste.class))).thenReturn(pisteAAjouter);
+  Mockito.when(pisteRepository.save(Mockito.any(Piste.class))).thenReturn(pisteAAjouter);
 
   Piste pisteAjoutee = pisteServices.addPiste(pisteAAjouter);
 
-  verify(pisteRepository).save(pisteAAjouter);
+  Mockito.verify(pisteRepository).save(pisteAAjouter);
 
 
   Assertions.assertNotNull(pisteAjoutee);
@@ -78,7 +75,7 @@ class ServicePisteLmplTest {
 
    }
   };
-  when(pisteRepository.findAll()).thenReturn(pisteList);
+  Mockito.when(pisteRepository.findAll()).thenReturn(pisteList);
 
   List<Piste> retrievedAllPistes = pisteServices.retrieveAllPistes();
   Assertions.assertEquals(pisteList.size(), retrievedAllPistes.size());
@@ -92,13 +89,13 @@ System.out.println("hello hello ");
   Long numPiste = 1L;
 
 
-  doNothing().when(pisteRepository).deleteById(1L);
+  Mockito.doNothing().when(pisteRepository).deleteById(1L);
 
 
   pisteServices.removePiste(numPiste);
 
 
-  verify(pisteRepository).deleteById(1L);
+  Mockito.verify(pisteRepository).deleteById(1L);
   System.out.println("hello hello ");
  }
 
