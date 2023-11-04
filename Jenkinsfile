@@ -14,20 +14,61 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-        stage('SonarQube') {
+
+        stage('ARTIFACT CONSTRUCTION') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+                sh 'mvn -B -DskipTests package'
             }
         }
+
+
         stage('JUNIT/MOCKITO') {
             steps {
-                sh 'mvn test'  
+                sh 'mvn test'
             }
         }
-          
+
+        stage('Code Quality Check via SonarQube') {
+                    steps {
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+                    }
+        }
+
         stage('Nexus Deploy') {
             steps {
-                sh 'mvn deploy -Dmaven.test.skip=true'  
+                sh 'mvn deploy -Dmaven.test.skip=true'
+            }
+        }
+
+        stage('Build Docker Image') {
+                   steps {
+                       script {
+                           sh 'docker build -t emnaayachi/course .'
+                       }
+                   }
+               }
+
+               stage('Docker Hub') {
+                   steps {
+                       script {
+                           sh 'docker login -u emnaayachi -p 07237811Ea'
+                       }
+                   }
+               }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh 'docker push emnaayachi/course:latest'
+                }
+            }
+        }
+
+        stage('Docker compose') {
+            steps {
+                script {
+                    sh 'docker-compose up -d'
+                }
             }
         }
     }
