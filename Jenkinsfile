@@ -20,15 +20,15 @@ pipeline {
                 sh 'mvn -B -DskipTests package'
             }
         }
-         stage('JUNIT/MOCKITO') {
+         stage('Tests Junit Mockito') {
             steps {
                 sh 'mvn test'
             }
         }
         
-        stage('Code Quality Check via SonarQube') {
+        stage('Code Quality SonarQube') {
                     steps {
-                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar '
                     }
         }
 
@@ -42,7 +42,7 @@ pipeline {
 
         stage('Nexus Deploy') {
             steps {
-                sh 'mvn deploy -Dmaven.test.skip=true'
+                sh 'mvn deploy -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/ -Dnexus.user=admin -Dnexus.password=nexus'
             }
         }
 

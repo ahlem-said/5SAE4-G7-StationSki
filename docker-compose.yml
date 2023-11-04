@@ -2,7 +2,7 @@ version: '3.3'
 services:
   mysql:
     image: mysql:5.7
-    restart: unless-stopped
+    container_name: mysql
     ports:
       - "3306:3306"
     environment:
@@ -12,7 +12,8 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - mysql_config:/etc/mysql/conf.d
-
+    networks:
+     - app-network
 
   spring-application:
     image: emnaayachi/course
@@ -21,13 +22,7 @@ services:
     depends_on:
       - mysql
     environment:
-     SPRING_APPLICATION_JSON : '{
-      "spring.datasource.url" : "jdbc:mysql://localhost:3306/stationSki?createDatabaseIfNotExist=true",
-      "spring.datasource.username" : "root",
-      "spring.datasource.password" : null,
-      "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-      "spring.jpa.hibernate.ddl-auto" : "update"
-    }'
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/stationSki
 
 volumes:
   mysql_data:
