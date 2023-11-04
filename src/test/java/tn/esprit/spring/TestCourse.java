@@ -52,6 +52,7 @@ import static org.mockito.Mockito.verify;
 
             Course course1 = courseServices.retrieveCourse(1L);
             assertNotNull(course1);
+            System.out.println("course");
 
 
         }
@@ -72,6 +73,7 @@ import static org.mockito.Mockito.verify;
 
             // Vérifiez si la méthode a renvoyé le bon objet Course
             assertNotNull(addedCourse);
+            System.out.println("course ADDED");
 
         }
 
@@ -90,6 +92,7 @@ import static org.mockito.Mockito.verify;
 
             // Assurez-vous que la liste de cours renvoyée correspond à ce que vous attendez
             assertEquals(expectedCourses.size(), retrievedCourses.size());
+            System.out.println("courses");
         }
 
         @Test
@@ -105,6 +108,7 @@ import static org.mockito.Mockito.verify;
 
             // Assurez-vous que le cours a bien été mis à jour
             assertNotNull(updatedCourse);
+            System.out.println("course updated");
         }
 
         @Test
@@ -120,6 +124,7 @@ import static org.mockito.Mockito.verify;
 
             // Assurez-vous que le cours a bien été supprimé
             verify(iCourseRepository).deleteById(1L);
+            System.out.println("course deleted");
         }
     }
 
