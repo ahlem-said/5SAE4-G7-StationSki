@@ -8,6 +8,7 @@
 		<version>2.6.9</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>tn.esprit.spring</groupId>
 	<artifactId>gestion-station-ski</artifactId>
 	<version>1.0</version>
@@ -16,6 +17,8 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+			<sonar.host.url>http://localhost:9000</sonar.host.url> <!-- URL de votre instance SonarQube -->
+			<sonar.login>sqb_dc38f5c20f65a9d84831a7a23debffd1040c07c3</sonar.login> <!-- Remplacez par votre token SonarQube -->
 	</properties>
 	<!-- Deploy to Nexus -->
 	<distributionManagement>
@@ -94,8 +97,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
-
 	</dependencies>
 
 	<build>
@@ -115,9 +116,14 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.0.2155</version>
+			</plugin>
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version>
+				<version>0.8.8</version>
 				<executions>
 					<execution>
 						<goals>
@@ -165,6 +171,7 @@
 						<artifactId>junit-jupiter-engine</artifactId>
 						<version>5.0.1</version>
 					</dependency>
+
 				</dependencies>
 			</plugin>
 		</plugins>
