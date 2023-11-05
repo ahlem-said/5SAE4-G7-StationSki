@@ -72,19 +72,24 @@ pipeline{
           //    sh  'docker push cyndazagrouba/gestion-station-ski'
           //       }
           //    }
-
-   stage('Deploy Image') {
+stage('Deploy Image') {
     steps {
         script {
             // Utilisez l'ID des informations d'identification que vous avez créées
             def dockerCredentials = credentials('docker-credentials')
 
-            // Utilisez les informations d'identification pour la commande docker login
-            sh "docker login -u ${dockerCredentials.username} -p ${dockerCredentials.password}"
-            sh 'docker push cyndazagrouba/gestion-station-ski'
+            // Vérifiez si les informations d'identification Docker existent
+            if (dockerCredentials) {
+                // Utilisez les informations d'identification pour la commande docker login
+                sh "docker login -u ${dockerCredentials.getUsername()} -p ${dockerCredentials.getPassword()}"
+                sh 'docker push cyndazagrouba/gestion-station-ski'
+            } else {
+                error "Les informations d'identification Docker (docker-credentials) n'ont pas été trouvées."
+            }
         }
     }
 }
+
 
 
     }
