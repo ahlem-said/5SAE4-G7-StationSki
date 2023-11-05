@@ -18,7 +18,6 @@ services:
       - "8089:8089"
     depends_on:
         - mysql
-
     restart: on-failure
     environment:
         SPRING_APPLICATION_JSON: '{
