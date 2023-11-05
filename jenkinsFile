@@ -78,17 +78,15 @@ stage('Deploy Image') {
             // Utilisez l'ID des informations d'identification que vous avez créées
             def dockerCredentials = credentials('docker-credentials')
 
-            // Vérifiez si les informations d'identification Docker existent
             if (dockerCredentials) {
                 // Utilisez les informations d'identification pour la commande docker login
-                def username = dockerCredentials?.username
-                def password = dockerCredentials?.password
+                def dockerConfig = Docker.server(dockerCredentials)
 
-                if (username && password) {
-                    sh "docker login -u ${username} -p ${password}"
+                if (dockerConfig) {
+                    sh "docker login -u ${dockerConfig.serverUrl} -p ${dockerConfig.registryPassword}"
                     sh 'docker push cyndazagrouba/gestion-station-ski'
                 } else {
-                    error "Les informations d'identification Docker (docker-credentials) ne contiennent pas de nom d'utilisateur ou de mot de passe."
+                    error "Les informations d'identification Docker (docker-credentials) n'ont pas été correctement récupérées."
                 }
             } else {
                 error "Les informations d'identification Docker (docker-credentials) n'ont pas été trouvées."
