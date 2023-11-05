@@ -20,7 +20,6 @@ services:
       - mysqldb
     image:  ahlemsa/gestionski
     restart: on-failure
-    env_file: ./.env
     ports:
       - 8089:8089
     environment:
