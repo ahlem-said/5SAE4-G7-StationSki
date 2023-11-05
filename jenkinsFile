@@ -52,7 +52,7 @@ pipeline{
                      //  }
          stage('Build and Deploy to nexus') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'admin', passwordVariable: 'nexus')]) {
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials')]) {
                     sh 'mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/ -Dnexus.user=\$NEXUS_USER -Dnexus.password=\$NEXUS_PASSWORD'
                 }
             }
@@ -73,6 +73,18 @@ pipeline{
                  }
               }
 
+  // stage('Deploy Image') {
+   // steps {
+    //    script {
+            // Utilisez l'ID des informations d'identification que vous avez créées
+    //        def dockerCredentials = credentials('docker-credentials')
+
+            // Utilisez les informations d'identification pour la commande docker login
+     //       sh "docker login -u ${dockerCredentials.username} -p ${dockerCredentials.password}"
+      //      sh 'docker push cyndazagrouba/gestion-station-ski'
+       // }
+   // }
+//}
 
 
     }
