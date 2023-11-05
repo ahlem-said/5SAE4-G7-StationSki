@@ -58,6 +58,20 @@ pipeline{
             }
         }
 
+      stage('Building Docker Image') {
+                      steps {
+                          script {
+                            sh 'docker build -t cyndazagrouba/gestion-station-ski .'
+                          }
+                      }
+                  }
+
+        stage('Deploy Image') {
+          steps {
+	          sh 'docker login -u cyndazagrouba -p cyndaDocker'
+              sh  'docker push cyndazagrouba/gestion-station-ski'
+                 }
+              }
 
 
 
