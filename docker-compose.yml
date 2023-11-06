@@ -2,21 +2,28 @@ version: '3.3'
 services:
   mysqldb:
     image: mysql:5.7
+
     container_name: mysql
     ports:
-      - "3306:3306"
+      - "3305:3306"
     environment:
-      MYSQL_ROOT_PASSWORD:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_DATABASE: "stationski"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
-    networks:
-     - app-network
+      MYSQL_ROOT_HOST: "%"
+    healthcheck:
+        test: [ "CMD-SHELL", "mysqladmin ping -h localhost" ]
+        timeout: 20s
+        retries: 10
+    restart: always
+    ulimits:
+     nofile:
+        soft: 65536
+        hard: 65536
+
 
   spring-application:
     image: emnaayachi/course
+    restart: on-failure
     ports:
       - "8089:8089"
     depends_on:
@@ -30,9 +37,9 @@ services:
            "spring.jpa.hibernate.ddl-auto" : "update"
          }'
 
+      stdin_open: true
+      tty: true
+      user: root
+
 volumes:
-  mysql_data:
-  mysql_config:
-networks:
-  app-network:
-    driver: bridge
+  db:
