@@ -72,12 +72,27 @@ pipeline {
             }
         }
        
-     stage('Sending email'){
-         steps {
-          mail bcc: '', body: '''Jenkins Notification,
-          CI Pipeline with success.
-          Cordialement''', cc: '', from: '', replyTo: '', subject: 'CI completed ', to: 'ayachi.emna@esprit.tn'
-          }
-                  }
+    stage('Sending email') {
+    steps {
+        mail(
+            to: 'ayachi.emna@esprit.tn',
+            subject: 'Rapport de construction du projet Jenkins',
+            body: '''Cher Équipe,
+
+            La pipeline CI/CD du projet "Station Ski" a été exécutée avec succès.
+
+            Détails de la construction :
+            - Nom du projet : MonProjet
+            - Numéro de construction : ${BUILD_NUMBER}
+            - Statut de construction : ${BUILD_STATUS}
+            - Utilisateur ayant déclenché la construction : ${BUILD_USER}
+            - Date de début de construction : ${BUILD_START_TIME}
+            - Date de fin de construction : ${BUILD_COMPLETION_TIME}
+            
+            Cordialement,
+            Votre serveur Jenkins'''
+        )
+    }
+}
     }
 }
