@@ -70,7 +70,15 @@ stage('Deploy to Nexus') {
           steps
           { sh 'docker compose up -d' }
 
-                            }
+           }
+
+     stage('Sending email'){
+         steps {
+          mail bcc: '', body: '''Jenkins Notification,
+          CI Pipeline with success.
+          Cordialement''', cc: '', from: '', replyTo: '', subject: 'CI completed ', to: 'ahlem.said@esprit.tn'
+          }
+                  }
 
 
 
