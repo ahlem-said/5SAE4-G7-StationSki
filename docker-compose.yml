@@ -22,7 +22,7 @@ services:
     depends_on:
       - mysqldb
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/stationSki
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/stationSki
 
 volumes:
   mysql_data:
