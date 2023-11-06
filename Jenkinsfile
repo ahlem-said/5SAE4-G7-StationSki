@@ -82,12 +82,11 @@ pipeline {
             La pipeline CI/CD du projet "Station Ski" a été exécutée avec succès.
 
             Détails de la construction :
-            - Nom du projet : MonProjet
-            - Numéro de construction : ${BUILD_NUMBER}
-            - Statut de construction : ${BUILD_STATUS}
-            - Utilisateur ayant déclenché la construction : ${BUILD_USER}
-            - Date de début de construction : ${BUILD_START_TIME}
-            - Date de fin de construction : ${BUILD_COMPLETION_TIME}
+            - Nom du projet : Station Ski
+            - Statut de construction : Success
+            - Utilisateur ayant déclenché la construction : Emna Ayachi
+            - Date de début de construction : 2023-10-12 09:30:00
+            - Date de fin de construction : 2023-11-09 10:00:00
             
             Cordialement,
             Votre serveur Jenkins'''
