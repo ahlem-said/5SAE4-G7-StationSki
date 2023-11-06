@@ -71,13 +71,13 @@ pipeline {
                 }
             }
         }
-        stage('Export Metrics to Prometheus') {
-    steps {
-        script {
-          
-            sh 'promtool export http://192.168.10.7:9090/metrics'
-        }
-    }
-}
+       
+     stage('Sending email'){
+         steps {
+          mail bcc: '', body: '''Jenkins Notification,
+          CI Pipeline with success.
+          Cordialement''', cc: '', from: '', replyTo: '', subject: 'CI completed ', to: 'ayachi.emna@esprit.tn'
+          }
+                  }
     }
 }
