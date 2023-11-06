@@ -71,5 +71,13 @@ pipeline {
                 }
             }
         }
+        stage('Export Metrics to Prometheus') {
+    steps {
+        script {
+          
+            sh 'promtool export http://192.168.10.7:9090/metrics'
+        }
+    }
+}
     }
 }
