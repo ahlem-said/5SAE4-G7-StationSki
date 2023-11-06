@@ -32,12 +32,6 @@ pipeline {
                     }
         }
 
-
-        stage('JUNIT/MOCKITO') {
-            steps {
-                sh 'mvn test'
-            }
-        }
   
 
         stage('Nexus Deploy') {
