@@ -7,6 +7,7 @@ pipeline{
        //            checkout scm
         //       }
         //   }
+
         stage(" Maven Test "){
             steps {
                 sh "mvn -version"
@@ -41,8 +42,6 @@ pipeline{
                        }
                    }
 
-
-
                   //  stage('Deploy to Nexus') {
                    //           steps {
 
@@ -50,6 +49,7 @@ pipeline{
 
                      //           }
                      //  }
+
          stage('Build and Deploy to nexus') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'admin', passwordVariable: 'nexus')]) {
@@ -72,15 +72,27 @@ pipeline{
           //    sh  'docker push cyndazagrouba/gestion-station-ski'
           //       }
           //    }
-stage('Docker Push') {
+
+     stage('Docker Push') {
       steps {
       	withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'cyndazagrouba', passwordVariable: 'cyndaDocker')]) {
         	sh "docker login -u ${env.cyndazagrouba} -p ${env.cyndaDocker}"
           sh 'docker push cyndazagrouba/gestion-station-ski'
         }
       }
-
-
     }
+
+ stage('Docker Compose') {
+     steps {
+         script {
+             // Pour s'assurer que Docker Compose est installé sur le système Jenkins
+             sh 'docker-compose --version'
+
+             // pour exécuter ma composition
+             sh 'docker-compose up -d'
+         }
+     }
+ }
+
 }
 }
