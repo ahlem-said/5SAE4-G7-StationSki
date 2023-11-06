@@ -85,9 +85,7 @@ pipeline{
  stage('Docker Compose') {
      steps {
          script {
-             // Pour s'assurer que Docker Compose est installé sur le système Jenkins
-             sh 'docker-compose --version'
-
+           
              // pour exécuter ma composition
              sh 'docker-compose up -d'
          }
