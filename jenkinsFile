@@ -92,6 +92,13 @@ pipeline{
      }
  }
 
+        stage('Integration Tests') {
+            steps {
+                // Tester les services de l'application avec Postman ou Swagger
+                sh 'newman run devops.json'  // Utilisez votre collection Postman
+            }
+        }
+
 
 }
 }
