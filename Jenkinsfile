@@ -28,7 +28,7 @@ pipeline {
         
         stage('Code Quality SonarQube') {
                     steps {
-                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube '
+                        sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube'
                     }
         }
 
@@ -51,7 +51,7 @@ pipeline {
                stage('Docker Hub') {
                    steps {
                        script {
-                           sh 'docker login -u emnaayachi -p dckr_pat_r126eCxHuD-1RxG9UGWC8cPAbmI'
+                           sh 'docker login -u emnaayachi -p dckr_pat_JUxpKOAMhftEho6CEFhbF2dShbc'
                        }
                    }
                }
