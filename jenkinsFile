@@ -107,7 +107,7 @@ stage('Send Email Notification') {
         script {
             def recipients = "cynda.zagrouba@esprit.tn"
 
-            emailext(
+            email(
                 subject: "Pipeline Successful: ${currentBuild.fullDisplayName}",
                 body: "The pipeline executed successfully.",
                 to: recipients,
