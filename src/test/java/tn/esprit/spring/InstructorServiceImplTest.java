@@ -1,7 +1,7 @@
 package tn.esprit.spring;
 
 
-import org.aspectj.lang.annotation.Before;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,7 +32,7 @@ public class InstructorServiceImplTest {
     @Mock
     private ICourseRepository courseRepository;
 
-    @Before("")
+    @Before()
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
@@ -92,4 +92,66 @@ public class InstructorServiceImplTest {
         assertEquals(1, updatedInstructor.getCourses().size());
         //verify(courseRepository).findById(numCourse);
     }
+
+    @Test
+    public void testAddInstructorWithInvalidData() {
+        Instructor instructorToSave = new Instructor();
+        instructorToSave.setFirstName(""); // Missing name
+        when(instructorRepository.save(instructorToSave)).thenReturn(null); // Simulating save failure
+        Instructor savedInstructor = instructorService.addInstructor(instructorToSave);
+        assertEquals(null, savedInstructor); // Verify null return
+    }
+
+    @Test
+    public void testUpdateInstructorWithMissingAttributes() {
+        Instructor instructorToUpdate = new Instructor();
+        instructorToUpdate.setNumInstructor(1L); // Provide ID
+        when(instructorRepository.save(instructorToUpdate)).thenReturn(null); // Simulating save failure
+        Instructor updatedInstructor = instructorService.updateInstructor(instructorToUpdate);
+        assertEquals(null, updatedInstructor); // Verify null return
+    }
+
+    @Test
+    public void testRetrieveInstructorWithNonExistentID() {
+        long numInstructor = -1L; // Invalid ID
+        when(instructorRepository.findById(numInstructor)).thenReturn(Optional.empty());
+        Instructor retrievedInstructor = instructorService.retrieveInstructor(numInstructor);
+        assertEquals(null, retrievedInstructor); // Verify null return
+    }
+
+    @Test
+    public void testAddInstructorAndAssignToNonExistentCourse() {
+        Long numCourse = -1L; // Invalid course ID
+        Instructor instructor = new Instructor();
+        Course course = new Course();
+        when(courseRepository.findById(numCourse)).thenReturn(Optional.empty()); // Simulating course absence
+        when(instructorRepository.save(instructor)).thenReturn(instructor);
+        Instructor updatedInstructor = instructorService.addInstructorAndAssignToCourse(instructor, numCourse);
+        assertEquals(instructor, updatedInstructor); // Instructor saved, but course assignment failed
+        assertEquals(0, updatedInstructor.getCourses().size()); // Verify no course assigned
+    }
+
+    @Test
+    public void testRetrieveAllInstructorsWithEmptyDataSet() {
+        when(instructorRepository.findAll()).thenReturn(Collections.emptyList());
+        List<Instructor> retrievedInstructors = instructorService.retrieveAllInstructors();
+        assertEquals(Collections.emptyList(), retrievedInstructors); // Verify empty list returned
+    }
+
+    @Test
+    public void testUpdateInstructorWithModifiedCourseAssociations() {
+        Instructor instructorToUpdate = new Instructor();
+        instructorToUpdate.setNumInstructor(1L); // Provide ID
+        Course course1 = new Course();
+        course1.setNumCourse(1L); // Existing course
+        instructorToUpdate.getCourses().add(course1);
+        Course course2 = new Course();
+        course2.setNumCourse(2L); // New course
+        instructorToUpdate.getCourses().add(course2);
+        when(instructorRepository.save(instructorToUpdate)).thenReturn(instructorToUpdate);
+        Instructor updatedInstructor = instructorService.updateInstructor(instructorToUpdate);
+        assertEquals(instructorToUpdate, updatedInstructor); // Verify updated instructor
+        assertEquals(2, updatedInstructor.getCourses().size()); // Verify both courses assigned
+    }
+
 }
