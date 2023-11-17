@@ -105,10 +105,8 @@ pipeline{
 stage('Send Email Notification') {
     steps {
         script {
-            def recipients = emailext_recipientProviders([[$class: 'CulpritsRecipientProvider']])
-            if (recipients.isEmpty()) {
-                recipients = "cynda.zagrouba@esprit.tn"
-            }
+            def recipients = recipients = "cynda.zagrouba@esprit.tn"
+                      
             emailext(
                 subject: "Pipeline Successful: ${currentBuild.fullDisplayName}",
                 body: "The pipeline executed successfully.",
