@@ -106,35 +106,16 @@ stage('Send Email Notification') {
     steps {
         script {
             def recipients = "cynda.zagrouba@esprit.tn"
-            def buildStatus = currentBuild.result ?: 'UNKNOWN'
-            def buildStartTime = currentBuild.startTimeInMillis
-            def buildEndTime = currentBuild.endTimeInMillis
-            def buildDuration = currentBuild.duration
 
             mail(
-                subject: "Pipeline Status: ${buildStatus} - ${currentBuild.fullDisplayName}",
-                body: """Dear Team,
-
-The pipeline CI/CD for the project "Station Ski" has been executed.
-
-Build Details:
-- Project Name: Station Ski
-- Build Status: ${buildStatus}
-- User Triggering the Build: ${currentBuild.causes[0]?.userId ?: 'N/A'}
-- Build Start Time: ${new Date(buildStartTime)}
-- Build End Time: ${new Date(buildEndTime)}
-- Build Duration: ${buildDuration / 1000} seconds
-
-Additional Information:
-- Git Commit: ${currentBuild.displayName}
-- Jenkins Build URL: ${env.BUILD_URL}
-
-Regards,
-Your Jenkins Server""",
-                to: recipients
+                subject: "Pipeline Successful: ${currentBuild.fullDisplayName}",
+                body: "The pipeline executed successfully.",
+                to: recipients,
+                //attachLog: true
             )
         }
     }
 }
+
 }
 }
