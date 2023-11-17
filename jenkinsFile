@@ -29,21 +29,21 @@ pipeline{
 
         }
           }
-                    stage('Unit Test') {
-                       steps {
-                           // Use Maven to run JUnit tests
-                           sh 'mvn test'
-                       }
-                   }
-                     post {
-                           always {
-                               // Publish JaCoCo coverage reports
-                               jacoco(
-                                   execPattern: '**/target/*.exec',
-                                   classPattern: '**/target/classes',
-                                   sourcePattern: '**/src/main/java'
-                               )
-                           }
+                     stage('Unit Test') {
+                               steps {
+                                   // Use Maven to run JUnit tests
+                                   sh 'mvn test'
+                               }
+                               post {
+                                   always {
+                                       // Publish JaCoCo coverage reports
+                                       jacoco(
+                                           execPattern: '**/target/*.exec',
+                                           classPattern: '**/target/classes',
+                                           sourcePattern: '**/src/main/java'
+                                       )
+                                   }
+                               }
                            }
           stage('SonarQube CodeQuality Check') {
                       steps{
