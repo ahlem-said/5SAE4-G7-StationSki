@@ -44,6 +44,7 @@ pipeline{
                                    sourcePattern: '**/src/main/java'
                                )
                            }
+                           }
           stage('SonarQube CodeQuality Check') {
                       steps{
                           sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=adminsonar'
