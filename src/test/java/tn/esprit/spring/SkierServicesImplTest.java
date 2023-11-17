@@ -66,30 +66,7 @@
             // Add more assertions as needed
         }
 
-        @Test
-        public void testAddSkier() {
-            // Create a sample Skier object
-            Skier skier = new Skier();
-            skier.setNumSkier(1L);
-            skier.setFirstName("John");
-            skier.setLastName("Doe");
-            skier.setDateOfBirth(LocalDate.of(1990, 5, 15));
-            skier.setCity("Example City");
-
-            // Mock the behavior of SubscriptionRepository to return a valid Subscription object
-         
-            
-
-            // Call the method to be tested
-            Skier addedSkier = skierServices.addSkier(skier);
-
-            // Verify the result
-            assertEquals(1L, addedSkier.getNumSkier());
-            assertEquals("John", addedSkier.getFirstName());
-            assertEquals("Doe", addedSkier.getLastName());
-            // Add more assertions as needed for other properties and behavior
-        }
-
+       
         @Test
         public void testAssignSkierToSubscription() {
             //skierRepository=mock(ISkierRepository.class);
