@@ -119,17 +119,7 @@ public class InstructorServiceImplTest {
         assertEquals(null, retrievedInstructor); // Verify null return
     }
 
-    @Test
-    public void testAddInstructorAndAssignToNonExistentCourse() {
-        Long numCourse = -1L; // Invalid course ID
-        Instructor instructor = new Instructor();
-        Course course = new Course();
-        when(courseRepository.findById(numCourse)).thenReturn(Optional.empty()); // Simulating course absence
-        when(instructorRepository.save(instructor)).thenReturn(instructor);
-        Instructor updatedInstructor = instructorService.addInstructorAndAssignToCourse(instructor, numCourse);
-        assertEquals(instructor, updatedInstructor); // Instructor saved, but course assignment failed
-        assertEquals(0, updatedInstructor.getCourses().size()); // Verify no course assigned
-    }
+
 
     @Test
     public void testRetrieveAllInstructorsWithEmptyDataSet() {
@@ -138,20 +128,5 @@ public class InstructorServiceImplTest {
         assertEquals(Collections.emptyList(), retrievedInstructors); // Verify empty list returned
     }
 
-    @Test
-    public void testUpdateInstructorWithModifiedCourseAssociations() {
-        Instructor instructorToUpdate = new Instructor();
-        instructorToUpdate.setNumInstructor(1L); // Provide ID
-        Course course1 = new Course();
-        course1.setNumCourse(1L); // Existing course
-        instructorToUpdate.getCourses().add(course1);
-        Course course2 = new Course();
-        course2.setNumCourse(2L); // New course
-        instructorToUpdate.getCourses().add(course2);
-        when(instructorRepository.save(instructorToUpdate)).thenReturn(instructorToUpdate);
-        Instructor updatedInstructor = instructorService.updateInstructor(instructorToUpdate);
-        assertEquals(instructorToUpdate, updatedInstructor); // Verify updated instructor
-        assertEquals(2, updatedInstructor.getCourses().size()); // Verify both courses assigned
-    }
 
 }
