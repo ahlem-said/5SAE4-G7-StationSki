@@ -110,7 +110,7 @@ stage('Send Email Notification') {
             email(
                 subject: "Pipeline Successful: ${currentBuild.fullDisplayName}",
                 body: "The pipeline executed successfully.",
-                to: recipients,
+                to: recipients
                 //attachLog: true
             )
         }
