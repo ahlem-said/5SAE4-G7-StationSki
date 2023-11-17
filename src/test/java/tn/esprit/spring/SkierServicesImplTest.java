@@ -77,13 +77,8 @@
             skier.setCity("Example City");
 
             // Mock the behavior of SubscriptionRepository to return a valid Subscription object
-            Subscription subscription = new Subscription();
-            subscription.setTypeSub(TypeSubscription.ANNUAL); // Set the subscription type
-            subscription.setStartDate(LocalDate.now()); // Set a valid start date
-            skier.setSubscription(subscription);
-
-            // Define the expected behavior of the mock skierRepository when saving a skier
-            when(skierRepository.save(skier)).thenReturn(skier);
+         
+            
 
             // Call the method to be tested
             Skier addedSkier = skierServices.addSkier(skier);
