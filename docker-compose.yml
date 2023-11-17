@@ -1,32 +1,33 @@
-version: '3.3'
+version: '3.7'
+
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
+  # Spring Boot app container
+  spring-app:
+    image: anistounekti/tounektiapp:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_IMAGE_NAME=anistounekti/tounektiapp:v1
+    ports:
+      - "8083:8000"
+    depends_on:
+      - mysql-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/stationSki
+      SPRING_DATASOURCE_USERNAME: springuser
+      SPRING_DATASOURCE_PASSWORD: R2#s7P@9q
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQL5Dialect"
+
+  # MySQL database container
+  mysql-db:
+    image: mysql:latest
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD:  
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'  
+      MYSQL_ROOT_PASSWORD: anis
       MYSQL_DATABASE: stationSki
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
-    networks:
-      - app-network
-
-  spring-app:
-    image: anistounekti/alpine:1.0.0
-    ports:
-      - "8089:8089"
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/stationSki
-
-volumes:
-  mysql_data:
-  mysql_config:
-networks:
-  app-network:
-    driver: bridge
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: R2#s7P@9q
