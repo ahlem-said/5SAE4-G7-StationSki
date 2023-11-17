@@ -35,6 +35,15 @@ pipeline{
                            sh 'mvn test'
                        }
                    }
+                     post {
+                           always {
+                               // Publish JaCoCo coverage reports
+                               jacoco(
+                                   execPattern: '**/target/*.exec',
+                                   classPattern: '**/target/classes',
+                                   sourcePattern: '**/src/main/java'
+                               )
+                           }
           stage('SonarQube CodeQuality Check') {
                       steps{
                           sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=adminsonar'
