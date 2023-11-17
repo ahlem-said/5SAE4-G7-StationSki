@@ -146,6 +146,11 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
