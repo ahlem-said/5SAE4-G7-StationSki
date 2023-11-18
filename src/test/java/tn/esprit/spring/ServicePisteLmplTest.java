@@ -47,7 +47,7 @@ class ServicePisteLmplTest {
   when(pisteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(piste));
   Piste piste1 = pisteServices.retrievePiste(64L);
   Assertions.assertNotNull(piste1);
-  System.out.println("hello hello ");
+  System.out.println("voici le pipste num  ");
  }
 
  @Test
@@ -65,7 +65,7 @@ class ServicePisteLmplTest {
 
   Assertions.assertNotNull(pisteAjoutee);
 
-  System.out.println("hello hello ");
+  System.out.println("piste bien ajoutée ");
 
  }
 
@@ -84,7 +84,7 @@ class ServicePisteLmplTest {
 
 
   verify(pisteRepository).deleteById(1L);
-  System.out.println("hello hello ");
+  System.out.println("piste supprimée ");
  }
 
 
