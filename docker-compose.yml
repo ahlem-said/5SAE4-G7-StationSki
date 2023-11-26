@@ -4,7 +4,7 @@ services:
   mysqldb:
     image: mysql:5.7
     ports:
-      - "3305:3306"
+      - "3304:3306"
     environment:
         MYSQL_ALLOW_EMPTY_PASSWORD: "true"
         MYSQL_DATABASE: "stationski"
